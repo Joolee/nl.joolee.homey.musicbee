@@ -1,0 +1,12 @@
+{
+    "id": "nl.joolee.homey.musicbee",
+    "name": {
+        "en": "MusicBee"
+    },
+    "version": "0.0.1",
+    "compatibility": "0.x || 1.x",
+    "author": {
+        "name": "Peter Overtoom",
+        "email": "athom@joolee.nl"
+    }
+}
