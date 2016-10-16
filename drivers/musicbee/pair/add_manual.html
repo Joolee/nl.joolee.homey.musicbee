@@ -1,0 +1,174 @@
+<style type="text/css">
+#connecting,
+#save,
+#saving {
+	display: none;
+}
+.toolbar {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+.settings {
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#error {
+	color: #CC0000;
+}
+
+#success {
+	color: #003300;
+}
+
+#trackinfo {
+	display: none;
+	margin-top: 25px;
+}
+
+th {
+	text-align: left;
+	font-weight: 900;
+	font-weight: 900 !important;
+	padding-right: 25px;
+}
+</style>
+
+<script type="text/javascript">
+var changed=false,
+	working=false;
+function change() {
+	changed=true;
+	
+	if(document.getElementById("save").style.display!="none")
+	{
+		document.getElementById("success").innerHTML="";
+		document.getElementById("connect").style.display="block";
+		document.getElementById("save").style.display="none";
+	}
+}
+
+function connectIt() {
+	var ip    = document.forms["form"]["ip"].value;
+	var port  = document.forms["form"]["port"].value;
+	if (working && !changed)
+	{
+		document.getElementById("save").style.display="none";
+		document.getElementById("saving").style.display="block";
+
+		var devName = ip;
+	    if(port != 3000)
+		{
+			devName = devName + ':' + port;
+		}
+	
+		Homey.addDevice({
+			name	: __("pair.name", {"address": devName}),
+			data 	: {
+				id	: ip + ':' + port + '/' + Math.random()
+			},
+			settings: {
+				ip: ip,
+				port: port
+			}
+		}, function( err, result ){
+			if( err )
+			{
+				return Homey.alert(err.message || err.toString());
+			}
+			else
+			{
+				return Homey.done();
+			}
+		})
+	}
+	else
+	{
+		changed=false;
+
+		document.getElementById("connect").style.display="none";
+		document.getElementById("connecting").style.display="block";
+
+		Homey.emit('connect', {"ip": ip, "port": port});
+	}
+}
+
+Homey.on( "connected", function(message) {
+	document.getElementById("error").innerHTML="";
+	document.getElementById("success").innerHTML=__("pair.success", {"address": document.forms["form"]["ip"].value + ':' + document.forms["form"]["port"].value});
+	if(typeof(message.Artist) != 'undefined')
+	{
+		document.getElementById("artistname").innerHTML=message.Artist;
+		document.getElementById("albumname").innerHTML=message.Album;
+		document.getElementById("trackname").innerHTML=message.Title;
+		document.getElementById("trackinfo").style.display="block";
+	}
+	working=true;
+	document.getElementById("connecting").style.display="none";
+	document.getElementById("save").style.display="block";
+});
+
+Homey.on( "failed", function(message) {
+	working=false;
+	document.getElementById("error").innerHTML=message;
+	document.getElementById("success").innerHTML="";
+	document.getElementById("connect").style.display="block";
+	document.getElementById("connecting").style.display="none";
+});
+
+</script>
+
+<form id="form" class="settings" name="form" onsubmit="connectIt(); return false;" action="javascript:void(0);" method="post">
+<p data-i18n="pair.manual"></p>
+<p data-i18n="pair.description"></p>
+<p id="error"></p>
+<p id="success"></p>
+	<fieldset>
+		<legend data-i18n="pair.settings"></legend>
+		<div class="input">
+			<label for="ip" data-i18n="pair.ip"></label>
+			<input class="control" type="text" name="ip" id="ip" required="required" onchange="change();" autofocus="autofocus">
+		</div>
+		
+		<div class="input">
+			<label for="port" data-i18n="pair.port"></label>
+			<input class="control" type="text" name="port" id="port" value="3000" required="required" onchange="change();">
+		</div>
+
+	</fieldset>
+	
+	<div class="toolbar">
+		<button id="connect" onclick="this.form.submit();" ></i><i class="fa fa-compress" id="floppy"></i> &nbsp;<span data-i18n="pair.connect"></span></span></button>
+		<button id="connecting" disabled="disabled"><i class="fa fa-spinner fa-spin" id="spinner"></i> &nbsp;<span data-i18n="pair.connecting"></span></button>
+		<button id="save" onclick="this.form.submit();"><i class="fa fa-floppy-o" id="floppy"></i> &nbsp;<span data-i18n="pair.save"></span></button>
+		<button id="saving"><i class="fa fa-spinner" id="spinner2"></i> &nbsp;<span data-i18n="pair.saving"></span></button>
+	</div>
+
+	<div id="trackinfo">
+		<p data-i18n="pair.trackinfo"></p>
+		<table>
+			<tr>
+				<th><span data-i18n="pair.artist"></span>: </th>
+				<td id="artistname"></td>
+			</tr>
+			<tr>
+				<th><span data-i18n="pair.album"></span>: </th>
+				<td id="albumname"></td>
+			</tr>
+			<tr>
+				<th><span data-i18n="pair.track"></span>: </th>
+				<td id="trackname"></td>
+			</tr>
+		</table>
+	</div>
+</form>
+<script type="text/javascript">
+	if(ipRange !== null) {
+		document.forms["form"]["ip"].value = ipRange;
+	}
+	document.forms["form"]["ip"].focus();
+</script>
+

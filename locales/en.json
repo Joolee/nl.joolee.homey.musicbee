@@ -1,1 +1,20 @@
-{}
+{
+	"pair": {
+		"manual": "If you haven't already, download and install <a href=\"http://kelsos.net/musicbeeremote/\" target=\"_blank\">MusicBee Remote by Kelsos</a> <i class=\"fa fa-external-link external-link\" style=\"font-size: .8em;\"></i> and start MusicBee.",
+		"description": "Enter the IP adres of your PC running MusicBee below. You can find it in the column named \"Private address list\" in MusicBee > Tools > MusicBee Remote",
+		"settings": "Connection settings",
+		"ip": "IP Address",
+		"port": "UDP Port number",
+		"connect": "Connect to MusicBee",
+		"connecting": "Connecting to MusicBee server",
+		"error": "Could not connect to MusicBee on __address__",
+		"save": "Add MusicBee to Homey!",
+		"saving": "Adding MusicBee to Homey!",
+		"artist": "Artist",
+		"album": "Album",
+		"track": "Track",
+		"trackinfo": "MusicBee is currently playing:",
+		"success": "Successfully connected to MusicBee on __address__",
+		"name": "MusicBee on __address__"
+	}
+}

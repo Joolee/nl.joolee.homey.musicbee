@@ -6,7 +6,782 @@
     "version": "0.0.1",
     "compatibility": "0.x || 1.x",
     "author": {
-        "name": "Peter Overtoom",
+        "name": "Joolee",
         "email": "athom@joolee.nl"
+    },
+    "drivers": [
+      {
+        "id": "musicbee",
+        "name": {
+          "en": "MusicBee Remote"
+        },
+        "images": {
+          "large": "",
+          "small": ""
+        },
+        "class": "",
+        "capabilities": [],
+        "pair": [
+          {
+            "id": "start"
+          },
+          {
+            "id": "add_manual"
+          },
+          {
+            "id": "list_devices",
+            "template": "list_devices",
+            "navigation": {
+              "next": "add_devices"
+            }
+          },
+          {
+            "id": "add_devices",
+            "template": "add_devices"
+          }
+        ],
+		"settings": [
+			{
+				"type": "group",
+				"label": {
+					"en": "Connection settings",
+					"nl": "Verbindingsinstellingen"
+				},
+				"children": [
+					{
+						"id": "ip",
+						"type": "text",
+						"label": {
+							"en": "IP Address",
+							"nl": "IP Adres"
+						},
+						"value": "192.168.x.x"
+					},
+					{
+						"id": "port",
+						"type": "text",
+						"label": {
+							"en": "UDP Port number",
+							"nl": "UDP Poortnummer"
+						},
+						"value": "3000"
+					}
+				]
+			},
+			{
+				"type": "group",
+				"label": {
+					"en": "Triggers on connect",
+					"nl": "Triggers bij verbinden met MusicBee"
+				},
+				"children": [
+					{
+						"id": "trigger_track",
+						"type": "radio",
+						"label": {
+							"en": "Track changes"
+						},
+						"value": "true",
+						"values": [
+							{
+								"id": "true",
+								"label": {
+									"en": "Also trigger 'track info changed' cards when Homey connects to MusicBee",
+									"nl": "Trigger nummeinformatie kaarten ook wanneer Homey verbindt met MusicBee"
+								}
+							},
+							{
+								"id": "false",
+								"label": {
+									"en": "Only trigger 'track info changed' cards when track changes",
+									"nl": "Trigger nummerinformatie kaarten alleen wanneer nummerinformatie wijzigt"
+								}
+							}
+						]
+					},
+					{
+						"id": "trigger_player",
+						"type": "radio",
+						"label": {
+							"en": "Player changes"
+						},
+						"value": "true",
+						"values": [
+							{
+								"id": "true",
+								"label": {
+									"en": "Also trigger player status cards (e.g. volume) when Homey connects to MusicBee",
+									"nl": "Trigger statuskaarten (bijv. volume) ook wanneer Homey verbindt met MusicBee"
+								}
+							},
+							{
+								"id": "false",
+								"label": {
+									"en": "Only trigger player status cards (e.g. volume) when the status is changed",
+									"nl": "Trigger statuskaarten (bijv. volume) alleen wanneer MusicBee iets wijzigt"
+								}
+							}
+						]
+					}
+				]
+			}
+		]
+      }
+    ],
+	"flow": {
+        "triggers": [
+            {
+                "id": "track_changed",
+                "title": {
+                    "en": "Track changed"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ],
+				"tokens": [
+					{
+						"name": "artist",
+						"title": {
+							"en": "Artist"
+						},
+						"example": {
+							"en": "Sahashi Toshihiko"
+						}
+					},
+					{
+						"name": "album",
+						"title": {
+							"en": "Album"
+						},
+						"example": {
+							"en": "Gundam Seed Destiny OST 2"
+						}
+					},
+					{
+						"name": "title",
+						"title": {
+							"en": "Title"
+						},
+						"example": {
+							"en": "Kakusei Shin Asuka"
+						}
+					},
+					{
+						"name": "year",
+						"title": {
+							"en": "Year"
+						},
+						"example": {
+							"en": "2005"
+						}
+					},
+					{
+						"name": "lyrics",
+						"title": {
+							"en": "Lyrics"
+						},
+						"example": {
+							"en": "Lorum Ipsum"
+						}
+					},
+					{
+						"name": "rating",
+						"title": {
+							"en": "Rating"
+						},
+						"example": {
+							"en": "6",
+							"comment": "Amount of half stars. 0-10"
+						}
+					},
+					{
+						"name": "length",
+						"title": {
+							"en": "Length"
+						},
+						"example": {
+							"en": "145",
+							"comment": "Track length in seconds"
+						}
+					}
+				]
+            },
+            {
+                "id": "state_changed",
+                "title": {
+                    "en": "Playing state changed"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ],
+				"tokens": [
+					{
+						"name": "playingState",
+						"title": {
+							"en": "State"
+						},
+						"example": {
+							"en": "Playing"
+						}
+					}
+				]
+            },
+            {
+                "id": "stopped",
+                "title": {
+                    "en": "Playing stopped"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+            },
+            {
+                "id": "playing",
+                "title": {
+                    "en": "Playing started"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+            },
+            {
+                "id": "paused",
+                "title": {
+                    "en": "Playing paused"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+            },
+            {
+                "id": "rating_changed",
+                "title": {
+                    "en": "Track rating changed"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ],
+				"tokens": [
+					{
+						"name": "rating",
+						"title": {
+							"en": "Rating"
+						},
+						"example": {
+							"en": "6",
+							"comment": "Amount of half stars 0-10"
+						}
+					}
+				]
+            },
+            {
+                "id": "volume_changed",
+                "title": {
+                    "en": "Volume changed"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ],
+				"tokens": [
+					{
+						"name": "volume",
+						"title": {
+							"en": "Volume"
+						},
+						"example": {
+							"en": "45"
+						}
+					}
+				]
+            },
+            {
+                "id": "shuffle_changed",
+                "title": {
+                    "en": "Shuffle changed"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ],
+				"tokens": [
+					{
+						"name": "shuffleState",
+						"title": {
+							"en": "State",
+							"nl": "Status"
+						},
+						"example": {
+							"en": "shuffle",
+							"comment": "can be shuffle, off and autodj"
+						}
+					}
+				]
+            },
+            {
+                "id": "mute_changed",
+                "title": {
+                    "en": "Mute state changed"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ],
+				"tokens": [
+					{
+						"name": "muteState",
+						"title": {
+							"en": "State",
+							"nl": "Status"
+						},
+						"example": {
+							"en": "false"
+						}
+					}
+				]
+            },
+            {
+                "id": "repeat_changed",
+                "title": {
+                    "en": "Repeat state changed"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ],
+				"tokens": [
+					{
+						"name": "repeatState",
+						"title": {
+							"en": "State",
+							"nl": "Status"
+						},
+						"example": {
+							"en": "All is not right",
+							"comment": "can be None, One and All"
+						}
+					}
+				]
+            },
+            {
+                "id": "connected",
+                "title": {
+                    "en": "MusicBee connects",
+                    "nl": "MusicBee verbindt"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+            },
+            {
+                "id": "disconnected",
+                "title": {
+                    "en": "MusicBee disconnects",
+                    "nl": "MusicBee sluit verbinding"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+            }
+        ],
+		"conditions": [
+			{
+				"id": "active",
+				"title": {
+					"en": "MusicBee !{{is|is not}} active",
+					"nl": "MusicBee !{{is|is niet}} actief"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+			},
+			{
+				"id": "playing",
+				"title": {
+					"en": "Playing state !{{is|is not}}",
+					"nl": "Afspeelstatus !{{is|is niet}}"
+				},
+                "args": [
+					{
+						"name": "playingStatus",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "Playing",
+								"label": {
+									"en": "Playing",
+									"nl": "Spelen"
+								}
+							},
+							{
+								"id": "Paused",
+								"label": {
+									"en": "Paused",
+									"nl": "Gepauzeerd"
+								}
+							},
+							{
+								"id": "Stopped",
+								"label": {
+									"en": "Stopped",
+									"nl": "Gestopt"
+								}
+							}
+						]
+					},
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+			},
+			{
+				"id": "muted",
+				"title": {
+					"en": "Volume !{{is|is not}} muted",
+					"nl": "Volume !{{staat|staat niet}} op mute"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+			},
+			{
+				"id": "repeat",
+				"title": {
+					"en": "Repeat state !{{is|is not}}",
+					"nl": "Repeatstatus !{{is|is niet}}"
+				},
+                "args": [
+					{
+						"name": "repeatStatus",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "None",
+								"label": {
+									"en": "Off",
+									"nl": "Uit"
+								}
+							},
+							{
+								"id": "One",
+								"label": {
+									"en": "One",
+									"nl": "Eén"
+								}
+							},
+							{
+								"id": "All",
+								"label": {
+									"en": "All",
+									"nl": "Alles"
+								}
+							}
+						]
+					},
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+			},
+			{
+				"id": "shuffle",
+				"title": {
+					"en": "Shuffle state !{{is|is not}}",
+					"nl": "Shufflestatus !{{is|is niet}}"
+				},
+                "args": [
+					{
+						"name": "shuffleStatus",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "shuffle",
+								"label": {
+									"en": "On",
+									"nl": "Aan"
+								}
+							},
+							{
+								"id": "off",
+								"label": {
+									"en": "Off",
+									"nl": "Uit"
+								}
+							},
+							{
+								"id": "autodj",
+								"label": {
+									"en": "Auto DJ",
+									"nl": "Auto DJ"
+								}
+							}
+						]
+					},
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
+			}
+		],
+		"actions": [
+			{
+				"id": "play",
+				"title": {
+					"en": "Play"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "pause",
+				"title": {
+					"en": "Pause"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "play_pause",
+				"title": {
+					"en": "Toggle Play / Pause"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "stop",
+				"title": {
+					"en": "Stop"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "stop_finish",
+				"title": {
+					"en": "Stop after current track finishes",
+					"nl": "Stop na deze track"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "next",
+				"title": {
+					"en": "Play Next",
+					"nl": "Speel volgende"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "previous",
+				"title": {
+					"en": "Play previous",
+					"nl": "Speel vorige"
+				},
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "set_rating",
+				"title": {
+					"en": "Set track rating",
+					"nl": "Verander rating"
+				},
+                "args": [
+					{
+						"name": "rating",
+						"type": "number",
+						"min": 0,
+						"max": 10,
+						"placeholder": {
+							"en": "Rating in half stars 0-10",
+							"nl": "Rating in halve sterren 0-10"
+						}
+					},
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "set_shuffle",
+				"title": {
+					"en": "Set shuffle mode",
+					"nl": "Verander shuffle modus"
+				},
+                "args": [
+					{
+						"name": "shuffleState",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "shuffle",
+								"label": {
+									"en": "On",
+									"nl": "Aan"
+								}
+							},
+							{
+								"id": "off",
+								"label": {
+									"en": "Off",
+									"nl": "Uit"
+								}
+							},
+							{
+								"id": "autodj",
+								"label": {
+									"en": "Auto DJ",
+									"nl": "Auto DJ"
+								}
+							}
+						]
+					},
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			},
+			{
+				"id": "set_repeat",
+				"title": {
+					"en": "Set repeat mode",
+					"nl": "Verander repeat modus"
+				},
+                "args": [
+					{
+						"name": "repeatState",
+						"type": "dropdown",
+						"values": [
+							{
+								"id": "None",
+								"label": {
+									"en": "Off",
+									"nl": "Uit"
+								}
+							},
+							{
+								"id": "One",
+								"label": {
+									"en": "One",
+									"nl": "Eén"
+								}
+							},
+							{
+								"id": "All",
+								"label": {
+									"en": "All",
+									"nl": "Alles"
+								}
+							}
+						]
+					},
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+				]
+			}
+		]
     }
 }

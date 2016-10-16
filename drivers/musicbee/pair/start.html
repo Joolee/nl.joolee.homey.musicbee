@@ -1,0 +1,82 @@
+<script>
+	var ipRange;
+
+	Homey.setTitle( 'Set up MusicBee Remote' );
+	function pickManual() {
+		Homey.setTitle("Enter settings manually");
+		test = 'blaat';
+		Homey.showView("add_manual");
+	}
+
+	function pickAutomatic() {
+		Homey.setTitle( 'Looking for MusicBee Remotes...' );
+		Homey.showView("list_devices")
+	}
+	
+	Homey.emit('getip', {}, function(data) {
+		ipRange = data.replace(/[^\.]+$/, '')
+	});
+</script>
+<link rel="stylesheet" type="text/css" href="/manager/devices/devicesettings/css/devicesettings.css">
+
+<div class="view-content">
+  <div class="pick" onclick="pickAutomatic()">
+    <div>
+      <h2 style="display: block;">Automatic</h2>
+      <p style="display: block;">Homey will try to find MusicBee on your network</p>
+      <span class="faicon fa fa-magic" title="Warning: may not actually be magic"></span>
+    </div>
+  </div>
+
+  <div class="pick" onclick="pickManual()">
+    <div>
+      <h2 style="display: block;">Manual</h2>
+      <p style="display: block;">Enter IP address and port number of your MusicBee Remote manually</p>
+      <span class="faicon fa fa-wrench"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+.pick {
+	align-items: center;
+	background: #eee;
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: flex;
+	float: left;
+	height: 100%;
+	justify-content: center;
+	margin: 0 1%;
+	padding: 8px 16px;
+	text-align: center;
+	transition: background .2s;
+	width: 48%;
+}
+
+.pick h2 {
+	margin-bottom: 4px;
+}
+
+.pick:hover {
+	background: #ccc;
+  cursor: pointer; /* Athom should add this by default */
+}
+
+.pick p {
+	display: block;
+	height: 50px;
+}
+
+.faicon {
+	background: 0 0;
+	color: #333;
+	font-size: 50px;
+	text-align: center;
+}
+
+.view {
+	position: initial;
+}
+</style>
+</div>
