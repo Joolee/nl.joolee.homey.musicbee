@@ -426,6 +426,20 @@
                         "filter": "driver_id=musicbee"
                     }
                 ]
+            },
+            {
+                "id": "stopped_after_current",
+                "title": {
+                    "en": "Last track finished",
+                    "nl": "Laatste track is gestopt"
+                },
+                "args": [
+                    {
+                        "name": "device",
+                        "type": "device",
+                        "filter": "driver_id=musicbee"
+                    }
+                ]
             }
         ],
 		"conditions": [
@@ -637,7 +651,7 @@
 			{
 				"id": "stop_finish",
 				"title": {
-					"en": "Stop after current track finishes",
+					"en": "Stop after current track",
 					"nl": "Stop na deze track"
 				},
                 "args": [
@@ -757,13 +771,6 @@
 								"label": {
 									"en": "Off",
 									"nl": "Uit"
-								}
-							},
-							{
-								"id": "One",
-								"label": {
-									"en": "One",
-									"nl": "Eén"
 								}
 							},
 							{

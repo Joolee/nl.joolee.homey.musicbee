@@ -19,6 +19,18 @@ module.exports.init = function(Hdevices, callback) {
 	return;
 };
 
+function triggerDevice(eventName, tokens, state, device_data, callback) {
+	console.log('Triggered ' + eventName + ' for ' + device_data.id);
+	if(typeof callback !== 'function')
+	{
+		callback = function(err, result){
+			if( err ) return Homey.error(err);
+		}
+	}
+	
+	Homey.manager('flow').triggerDevice(eventName, tokens, state, device_data, callback);
+}
+
 function initDevice(device_data, callback) {
 	module.exports.getSettings( device_data, function( err, settings ){
 		console.log("Initialising " + device_data.id, settings);
@@ -50,28 +62,26 @@ function initDevice(device_data, callback) {
 
 		var volumeTimer = null;
 		var volumeChanged = function() {
-			Homey.manager('flow').triggerDevice( 'volume_changed', {volume: device.cachedPlayerStatus.playervolume}, null, device_data, function(err, result){
-				if( err ) return Homey.error(err);
-			});
+			triggerDevice( 'volume_changed', {volume: device.cachedPlayerStatus.playervolume}, null, device_data);
 		}
 
-			
+		device.on('error', function(exception) {
+			// Don't really need this but there must always be a listener to 'error' events!
+		});
+
+		
 		device.on('connected', function(source, playerStatus) {
 			console.log('Device connected!');
 			module.exports.setAvailable( device_data );
 			
-			Homey.manager('flow').triggerDevice( 'connected', null, null, device_data, function(err, result){
-				if( err ) return Homey.error(err);
-			});
+			triggerDevice( 'connected', null, null, device_data);
 		});
 
 		device.on('disconnected', function(source, playerStatus) {
 			console.log('Device disconnected :(');
 			module.exports.setUnavailable( device_data, "Could not connect to " + settings.ip);
 
-			Homey.manager('flow').triggerDevice( 'disconnected', null, null, device_data, function(err, result){
-				if( err ) return Homey.error(err);
-			});
+			triggerDevice( 'disconnected', null, null, device_data);
 		});
 
 		device.on('statusChanged', function(source, playerStatus) {
@@ -86,15 +96,10 @@ function initDevice(device_data, callback) {
 			{
 				if(device.cachedPlayerStatus.playerstate !== playerStatus.playerstate)
 				{
-					Homey.manager('flow').triggerDevice( 'state_changed', { playingState: playerStatus.playerstate }, null, device_data, function(err, result){
-						if( err ) return Homey.error(err);
-					});
+					triggerDevice( 'state_changed', { playingState: playerStatus.playerstate }, null, device_data);
 					
-					console.log('Trigger', playerStatus.playerstate.toLowerCase());
 					// Triggers played/paused and stopped flows
-					Homey.manager('flow').triggerDevice( playerStatus.playerstate.toLowerCase(), null, null, device_data, function(err, result){
-						if( err ) return Homey.error(err);
-					});
+					triggerDevice( playerStatus.playerstate.toLowerCase(), null, null, device_data);
 				}
 				
 				if(device.cachedPlayerStatus.playervolume !== playerStatus.playervolume)
@@ -109,23 +114,17 @@ function initDevice(device_data, callback) {
 				
 				if(device.cachedPlayerStatus.playermute !== playerStatus.playermute)
 				{
-					Homey.manager('flow').triggerDevice( 'mute_changed', {muteState: playerStatus.playermute}, null, device_data, function(err, result){
-						if( err ) return Homey.error(err);
-					});
+					triggerDevice( 'mute_changed', {muteState: playerStatus.playermute}, null, device_data);
 				}
 				
 				if(device.cachedPlayerStatus.playershuffle !== playerStatus.playershuffle)
 				{
-					Homey.manager('flow').triggerDevice( 'shuffle_changed', {shuffleState: playerStatus.playershuffle}, null, device_data, function(err, result){
-						if( err ) return Homey.error(err);
-					});
+					triggerDevice( 'shuffle_changed', {shuffleState: playerStatus.playershuffle}, null, device_data);
 				}
 				
 				if(device.cachedPlayerStatus.playerrepeat !== playerStatus.playerrepeat)
 				{
-					Homey.manager('flow').triggerDevice( 'repeat_changed', {repeatState: playerStatus.playerrepeat}, null, device_data, function(err, result){
-						if( err ) return Homey.error(err);
-					});
+					triggerDevice( 'repeat_changed', {repeatState: playerStatus.playerrepeat}, null, device_data);
 				}
 				console.log('Device status changed!', playerStatus);
 				Object.assign(device.cachedPlayerStatus, playerStatus);
@@ -148,9 +147,7 @@ function initDevice(device_data, callback) {
 			{
 				var tokens = nowPlaying;
 				tokens.length = Math.floor(tokens.position.total / 1000);
-				Homey.manager('flow').triggerDevice( 'track_changed', nowPlaying, null, device_data, function(err, result){
-					if( err ) return Homey.error(err);
-				});
+				triggerDevice( 'track_changed', nowPlaying, null, device_data);
 				
 				console.log('Device track changed!', source, nowPlaying);
 			}
@@ -158,12 +155,14 @@ function initDevice(device_data, callback) {
 			{
 				if(device.cachedNowPlaying.rating != nowPlaying.rating)
 				{
-					Homey.manager('flow').triggerDevice( 'rating_changed', {rating: nowPlaying.rating}, null, device_data, function(err, result){
-						if( err ) return Homey.error(err);
-					});
+					triggerDevice( 'rating_changed', {rating: nowPlaying.rating}, null, device_data);
 				}
 			}
 			Object.assign(device.cachedNowPlaying, nowPlaying);
+		});
+		
+		device.on('stopped_after_current', function(source, nowPlaying) {
+			triggerDevice( 'stopped_after_current', null, null, device_data);
 		});
 		
 		devices[device_data.id] = device;
@@ -192,8 +191,58 @@ Homey.manager('flow').on('condition.repeat', function( callback, args ){
 });
 
 Homey.manager('flow').on('condition.shuffle', function( callback, args ){
-	console.log(args.shuffleStatus, devices[args.device.id].getPlayerStatus().playershuffle)
     callback( null, devices[args.device.id].getPlayerStatus().playershuffle == args.shuffleStatus );
+});
+
+Homey.manager('flow').on('action.play', function( callback, args ){
+    devices[args.device.id].play();
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.pause', function( callback, args ){
+    devices[args.device.id].pause();
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.play_pause', function( callback, args ){
+    devices[args.device.id].playPause();
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.stop', function( callback, args ){
+    devices[args.device.id].stop();
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.next', function( callback, args ){
+    devices[args.device.id].next();
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.previous', function( callback, args ){
+    devices[args.device.id].previous();
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.stop_finish', function( callback, args ){
+    devices[args.device.id].stopFinish();
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.set_rating', function( callback, args ){
+    devices[args.device.id].setRating(args.rating);
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.set_shuffle', function( callback, args ){
+    devices[args.device.id].setShuffle(args.shuffleState);
+    callback( null, true );
+});
+
+Homey.manager('flow').on('action.set_repeat', function( callback, args ){
+	// 'Repeat One' is not supported by plugin :(
+    devices[args.device.id].setRepeat(args.repeatState);
+    callback( null, true );
 });
 
 module.exports.pair = function( socket ) {
