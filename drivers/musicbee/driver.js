@@ -412,7 +412,6 @@ module.exports.added = function( device_data, callback ) {
 // when it uses another remote to control that device (e.g. the manufacturer's app).
 module.exports.renamed = function( device_data, new_name ) {
 	console.log('Renamed device: ' + device_data.id);
-	console.log(device.name + ' => ' + new_name);
 };
 
 // run when the user has deleted the device from Homey
