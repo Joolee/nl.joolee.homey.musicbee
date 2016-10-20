@@ -1,13 +1,13 @@
 # MusicBee Remote
-Ok Homey! Play me something.
+Ok Homey! Play me something!
 
-Control MusicBee with your Homey! This plugin allows you to send commands through the [MusicBee Remote plugin by Kelsos](http://kelsos.net/musicbeeremote/). Uses devices so you can control multiple MusicBee instances.
+Control MusicBee with your Homey! This plugin allows you to send commands through the [MusicBee Remote plugin by Kelsos](http://kelsos.net/musicbeeremote/). Uses devices so you can control multiple MusicBee instances!
 
 ## You can:
-* Get track information such as artist, album, title, lysics and more
+* Get track information such as artist, album, title, lyrics and more
 * Play/Pause/Stop music
-* Stop music while finishing the current track
- * And trigger when this happened
+* Stop music after the current track has finishing playing
+ * And trigger a flow when this happened
 * Play Next / Previous track
 * Change volume
 * Toggle repeat
@@ -16,10 +16,10 @@ Control MusicBee with your Homey! This plugin allows you to send commands throug
 
 ## You can not yet:
 * Start playlists
-* Get album art (through Base64 string or url)
+* Get album art (as Base64 string or url)
 * Seek in track
 
-## I might add, if people actually use this app:
+## I might add (if people actually use this app):
 * Search, queue and start tracks, artists and albums
 * Start music from url's
 * Transfer playlist content to variable or Homey playlist system
@@ -31,6 +31,8 @@ Control MusicBee with your Homey! This plugin allows you to send commands throug
 ![Track changed trigger](readme/trigger-track_changed.png)
 
 Triggers when track changes automatically or by skipping to the next track
+
+Provides tags:
 * Track title
 * Artist name
 * Album name
@@ -43,54 +45,65 @@ Triggers when track changes automatically or by skipping to the next track
 ![Playback state changed trigger](readme/trigger-state_changed.png)
 
 Triggers when playback has been paused, stopped or started
+
+Provides tag:
 * State
  * Can be 'Playing', 'Paused' or 'Stopped'
- 
- 
+<br>
+<br>
 ![Track rating changed trigger](readme/trigger-rating_changed.png)
 
+Provides tag:
 Triggers when track rating has been changed
 * Rating from 0-5 in 10 steps
-
-
+<br>
+<br>
 ![Volume changed trigger](readme/trigger-volume_changed.png)
 
 Triggers when MusicBee volume has been changed (combines volume changes that happen less then 500ms appart)
+
+Provides tag:
 * Volume from 0-100
-
-
+<br>
+<br>
 ![Shuffle state changed trigger](readme/trigger-shuffle_changed.png)
 
 Triggers when the MusicBee shuffle setting is changed
+
+Provides tag:
 * State
  * Can be 'shuffle', 'off' or 'autodj'
-
- 
+<br>
+<br>
 ![Mute state changed trigger](readme/trigger-mute_changed.png)
 
 Triggers when Mute is enabled or disabled. Also triggers when volume equals zero
+
+Provides tag:
 * State
  * Can be 'true' or 'false'
- 
- 
+<br>
+<br>
 ![Repeat state changed trigger](readme/trigger-repeat_changed.png)
 
 Triggers when MusicBee repeat setting is changed
+
+Provides tag:
 * State
  * Can be 'All', 'One' or 'None'
-
- 
+<br>
+<br>
 ![MusicBee connected trigger](readme/trigger-connected.png)
 
 ![MusicBee disconnected trigger](readme/trigger-disconnected.png)
 
 Triggers when Homey gets connected or disconnected to MusicBee (e.g. you started or close MusicBee)
-
-
+<br>
+<br>
 ![MusicBee 'stopped after current track' trigger](readme/trigger-stopped_after_current.png)
 
 A special trigger card.
-Triggers when the 'Stop after current track' *action card* did his work. Triggers immediately when playback state is 'Paused' or 'Stopped' when the action card is execured.
+Triggers when the 'Stop after current track' *action card* did his work. Triggers immediately when playback state is 'Paused' or 'Stopped' when the action card is executed.<br>
 Note: This card does not get triggered by the 'stop after current track' option in *MusicBee itself*!
 
 
@@ -120,9 +133,9 @@ Whether Homey has an active connection to MusicBee at the moment
 
 ![Start playback after current track action](readme/action-stop_finish.png)
 
-Stop playback but finish currently playing track first. Plays together with the 'stopped after current track' trigger card.
-Changing playback position in a track or changing track is considired. After the new track is finished, playback will still stop.
-To cancel this state, execute the 'Play' action card. Hitting 'Play' in MusicBee or the MusicBee Remote Android app does not cancel this state!
+Stop playback but finish currently playing track first. Works together with the *'stopped after current track'* trigger card.
+Changing playback position in a track or changing track is taken into account. After the new track is finished, playback will still stop.
+To cancel this state, execute the 'Play' action card. Hitting 'Play' in MusicBee or the MusicBee Remote Android app does not cancel this state!<br>
 Note: Does not touch the 'stop after current track' option in *MusicBee itself*! They might bite :)
 
 ![Play next track action](readme/action-next.png)
