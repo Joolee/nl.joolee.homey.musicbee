@@ -28,7 +28,7 @@ Control MusicBee with your Homey! This plugin allows you to send commands throug
 
 # Flow cards explained
 ## Triggers
-![Track changed trigger](readme/trigger-track_changed.png)
+![Track changed trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-track_changed.png)
 
 Triggers when track changes automatically or by skipping to the next track
 
@@ -42,7 +42,7 @@ Provides tags:
 * Track length in seconds
 
 
-![Playback state changed trigger](readme/trigger-state_changed.png)
+![Playback state changed trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-state_changed.png)
 
 Triggers when playback has been paused, stopped or started
 
@@ -50,20 +50,20 @@ Provides tag:
 * State
  * Can be 'Playing', 'Paused' or 'Stopped'
 
-![Track rating changed trigger](readme/trigger-rating_changed.png)
+![Track rating changed trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-rating_changed.png)
 
 Provides tag:
 Triggers when track rating has been changed
 * Rating from 0-5 in 10 steps
 
-![Volume changed trigger](readme/trigger-volume_changed.png)
+![Volume changed trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-volume_changed.png)
 
 Triggers when MusicBee volume has been changed (combines volume changes that happen less then 500ms appart)
 
 Provides tag:
 * Volume from 0-100
 
-![Shuffle state changed trigger](readme/trigger-shuffle_changed.png)
+![Shuffle state changed trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-shuffle_changed.png)
 
 Triggers when the MusicBee shuffle setting is changed
 
@@ -71,7 +71,7 @@ Provides tag:
 * State
  * Can be 'shuffle', 'off' or 'autodj'
 
-![Mute state changed trigger](readme/trigger-mute_changed.png)
+![Mute state changed trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-mute_changed.png)
 
 Triggers when Mute is enabled or disabled. Also triggers when volume equals zero
 
@@ -79,7 +79,7 @@ Provides tag:
 * State
  * Can be 'true' or 'false'
 
-![Repeat state changed trigger](readme/trigger-repeat_changed.png)
+![Repeat state changed trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-repeat_changed.png)
 
 Triggers when MusicBee repeat setting is changed
 
@@ -87,13 +87,13 @@ Provides tag:
 * State
  * Can be 'All', 'One' or 'None'
 
-![MusicBee connected trigger](readme/trigger-connected.png)
+![MusicBee connected trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-connected.png)
 
-![MusicBee disconnected trigger](readme/trigger-disconnected.png)
+![MusicBee disconnected trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-disconnected.png)
 
 Triggers when Homey gets connected or disconnected to MusicBee (e.g. you started or close MusicBee)
 
-![MusicBee 'stopped after current track' trigger](readme/trigger-stopped_after_current.png)
+![MusicBee 'stopped after current track' trigger](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/trigger-stopped_after_current.png)
 
 A special trigger card.
 Triggers when the 'Stop after current track' *action card* did his work. Triggers immediately when playback state is 'Paused' or 'Stopped' when the action card is executed.<br>
@@ -102,44 +102,44 @@ Note: This card does not get triggered by the 'stop after current track' option 
 
 ## Condition cards
 
-![MusicBee is active condition](readme/condition-active.png)
+![MusicBee is active condition](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/condition-active.png)
 
 Whether Homey has an active connection to MusicBee at the moment
 
-![Playback state condition](readme/condition-playing.png)
+![Playback state condition](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/condition-playing.png)
 
-![MusicBee is muted condition](readme/condition-muted.png)
+![MusicBee is muted condition](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/condition-muted.png)
 
-![Repeat state condition](readme/condition-repeat.png)
+![Repeat state condition](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/condition-repeat.png)
 
-![Shuffle state condition](readme/condition-shuffle.png)
+![Shuffle state condition](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/condition-shuffle.png)
 
 ## Action cards
 
-![Start playback action](readme/action-play.png)
+![Start playback action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-play.png)
 
-![Pause playback action](readme/action-pause.png)
+![Pause playback action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-pause.png)
 
-![Toggle Play / Pause action](readme/action-play_pause.png)
+![Toggle Play / Pause action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-play_pause.png)
 
-![Stop playback action](readme/action-stop.png)
+![Stop playback action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-stop.png)
 
-![Start playback after current track action](readme/action-stop_finish.png)
+![Start playback after current track action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-stop_finish.png)
 
 Stop playback but finish currently playing track first. Works together with the *'stopped after current track'* trigger card.
 Changing playback position in a track or changing track is taken into account. After the new track is finished, playback will still stop.
 To cancel this state, execute the 'Play' action card. Hitting 'Play' in MusicBee or the MusicBee Remote Android app does not cancel this state!<br>
 Note: Does not touch the 'stop after current track' option in *MusicBee itself*! They might bite :)
 
-![Play next track action](readme/action-next.png)
+![Play next track action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-next.png)
 
-![Play previous action](readme/action-previous.png)
+![Play previous action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-previous.png)
 
-![Set rating action](readme/action-set_rating.png)
+![Set rating action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-set_rating.png)
 
-![Set shuffle mode action](readme/action-set_shuffle.png)
+![Set shuffle mode action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-set_shuffle.png)
 
-![set repeat mode action](readme/action-set_repeat.png)
+![set repeat mode action](https://raw.githubusercontent.com/Joolee/nl.joolee.homey.musicbee/master/readme/action-set_repeat.png)
 
 The MusicBee Remote plugin currently does not support setting repeat to 'One'.
 
