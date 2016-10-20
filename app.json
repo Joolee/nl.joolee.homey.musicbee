@@ -1,14 +1,24 @@
 {
     "id": "nl.joolee.homey.musicbee",
     "name": {
-        "en": "MusicBee Remote"
+        "en": "MusicBee Remote",
+        "nl": "MusicBee Remote"
     },
+	"description": {
+		"en": "Control MusicBee Remote from Homey",
+		"nl": "Beheer MusicBee Remote vanaf Homey"
+	},
+	"category": "music",
     "version": "1.0.0",
     "compatibility": "0.x || 1.x",
     "author": {
         "name": "Joolee",
         "email": "athom@joolee.nl"
     },
+	"images": {
+		"large": "./assets/images/large.png",
+		"small": "./assets/images/small.png"
+	},
     "drivers": [
       {
         "id": "musicbee",
@@ -16,8 +26,8 @@
           "en": "MusicBee Remote"
         },
         "images": {
-          "large": "",
-          "small": ""
+          "large": "./drivers/musicbee/assets/images/large.png",
+          "small": "./drivers/musicbee/assets/images/small.png"
         },
         "class": "",
         "capabilities": [],
