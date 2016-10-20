@@ -49,23 +49,20 @@ Triggers when playback has been paused, stopped or started
 Provides tag:
 * State
  * Can be 'Playing', 'Paused' or 'Stopped'
-<br>
-<br>
+
 ![Track rating changed trigger](readme/trigger-rating_changed.png)
 
 Provides tag:
 Triggers when track rating has been changed
 * Rating from 0-5 in 10 steps
-<br>
-<br>
+
 ![Volume changed trigger](readme/trigger-volume_changed.png)
 
 Triggers when MusicBee volume has been changed (combines volume changes that happen less then 500ms appart)
 
 Provides tag:
 * Volume from 0-100
-<br>
-<br>
+
 ![Shuffle state changed trigger](readme/trigger-shuffle_changed.png)
 
 Triggers when the MusicBee shuffle setting is changed
@@ -73,8 +70,7 @@ Triggers when the MusicBee shuffle setting is changed
 Provides tag:
 * State
  * Can be 'shuffle', 'off' or 'autodj'
-<br>
-<br>
+
 ![Mute state changed trigger](readme/trigger-mute_changed.png)
 
 Triggers when Mute is enabled or disabled. Also triggers when volume equals zero
@@ -82,8 +78,7 @@ Triggers when Mute is enabled or disabled. Also triggers when volume equals zero
 Provides tag:
 * State
  * Can be 'true' or 'false'
-<br>
-<br>
+
 ![Repeat state changed trigger](readme/trigger-repeat_changed.png)
 
 Triggers when MusicBee repeat setting is changed
@@ -91,15 +86,13 @@ Triggers when MusicBee repeat setting is changed
 Provides tag:
 * State
  * Can be 'All', 'One' or 'None'
-<br>
-<br>
+
 ![MusicBee connected trigger](readme/trigger-connected.png)
 
 ![MusicBee disconnected trigger](readme/trigger-disconnected.png)
 
 Triggers when Homey gets connected or disconnected to MusicBee (e.g. you started or close MusicBee)
-<br>
-<br>
+
 ![MusicBee 'stopped after current track' trigger](readme/trigger-stopped_after_current.png)
 
 A special trigger card.
