@@ -1,0 +1,20 @@
+{
+	"pair": {
+		"manual": "Installeer wanneer u dit nog niet gedaan heeft de <a href=\"http://kelsos.net/musicbeeremote/\" target=\"_blank\">MusicBee Remote plugin van Kelsos</a> <i class=\"fa fa-external-link external-link\" style=\"font-size: .8em;\"></i> en start MusicBee op uw computer",
+		"description": "Voer het IP adres van de computer waarop u MusicBee heeft aanstaan hieronder. U kunt het IP adres vinden in de kolom genaamd \"Private address list\" in MusicBee > Hulpmiddelen > MusicBee Remote",
+		"settings": "Verbindingsinstellingen",
+		"ip": "IP Adres",
+		"port": "UDP Poortnummer",
+		"connect": "Verbind met MusicBee",
+		"connecting": "Verbinden met MusicBee Remote",
+		"error": "Could not connect to MusicBee on __address__",
+		"save": "Voeg MusicBee toe aan Homey!",
+		"saving": "MusicBee wordt toegevoegd aan Homey!",
+		"artist": "Artiest",
+		"album": "Album",
+		"track": "Nummer",
+		"trackinfo": "MusicBee speelt momenteel:",
+		"success": "Successvol verbonden met MusicBee op __address__",
+		"name": "MusicBee op __address__"
+	}
+}

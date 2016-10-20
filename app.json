@@ -1,9 +1,9 @@
 {
     "id": "nl.joolee.homey.musicbee",
     "name": {
-        "en": "MusicBee"
+        "en": "MusicBee Remote"
     },
-    "version": "0.0.1",
+    "version": "1.0.0",
     "compatibility": "0.x || 1.x",
     "author": {
         "name": "Joolee",
@@ -79,7 +79,8 @@
 						"id": "trigger_track",
 						"type": "radio",
 						"label": {
-							"en": "Track changes"
+							"en": "Track changes",
+							"nl": "Nummer verandert"
 						},
 						"value": "true",
 						"values": [
@@ -103,21 +104,22 @@
 						"id": "trigger_player",
 						"type": "radio",
 						"label": {
-							"en": "Player changes"
+							"en": "MusicBee state",
+							"nl": "MusicBee status"
 						},
 						"value": "true",
 						"values": [
 							{
 								"id": "true",
 								"label": {
-									"en": "Also trigger player status cards (e.g. volume) when Homey connects to MusicBee",
+									"en": "Also trigger player state cards (e.g. volume) when Homey connects to MusicBee",
 									"nl": "Trigger statuskaarten (bijv. volume) ook wanneer Homey verbindt met MusicBee"
 								}
 							},
 							{
 								"id": "false",
 								"label": {
-									"en": "Only trigger player status cards (e.g. volume) when the status is changed",
+									"en": "Only trigger player state cards (e.g. volume) when the state is changed",
 									"nl": "Trigger statuskaarten (bijv. volume) alleen wanneer MusicBee iets wijzigt"
 								}
 							}
@@ -133,7 +135,8 @@
             {
                 "id": "track_changed",
                 "title": {
-                    "en": "Track changed"
+                    "en": "Track changed",
+                    "nl": "Nummer verandert"
                 },
                 "args": [
                     {
@@ -146,7 +149,8 @@
 					{
 						"name": "artist",
 						"title": {
-							"en": "Artist"
+							"en": "Artist",
+							"nl": "Artiest"
 						},
 						"example": {
 							"en": "Sahashi Toshihiko"
@@ -164,7 +168,8 @@
 					{
 						"name": "title",
 						"title": {
-							"en": "Title"
+							"en": "Title",
+							"nl": "Titel"
 						},
 						"example": {
 							"en": "Kakusei Shin Asuka"
@@ -173,7 +178,8 @@
 					{
 						"name": "year",
 						"title": {
-							"en": "Year"
+							"en": "Year",
+							"nl": "Jaar"
 						},
 						"example": {
 							"en": "2005"
@@ -182,7 +188,8 @@
 					{
 						"name": "lyrics",
 						"title": {
-							"en": "Lyrics"
+							"en": "Lyrics",
+							"nl": "Songtekst"
 						},
 						"example": {
 							"en": "Lorum Ipsum"
@@ -191,7 +198,8 @@
 					{
 						"name": "rating",
 						"title": {
-							"en": "Rating"
+							"en": "Rating",
+							"nl": "Score"
 						},
 						"example": {
 							"en": "6",
@@ -201,7 +209,8 @@
 					{
 						"name": "length",
 						"title": {
-							"en": "Length"
+							"en": "Length",
+							"nl": "Lengte"
 						},
 						"example": {
 							"en": "145",
@@ -213,7 +222,8 @@
             {
                 "id": "state_changed",
                 "title": {
-                    "en": "Playing state changed"
+                    "en": "Playing state changed",
+					"nl": "Afspeelstatus verandert"
                 },
                 "args": [
                     {
@@ -226,7 +236,8 @@
 					{
 						"name": "playingState",
 						"title": {
-							"en": "State"
+							"en": "State",
+							"nl": "Status"
 						},
 						"example": {
 							"en": "Playing"
@@ -237,7 +248,8 @@
             {
                 "id": "rating_changed",
                 "title": {
-                    "en": "Track rating changed"
+                    "en": "Track rating changed",
+					"nl": "Score verandert"
                 },
                 "args": [
                     {
@@ -250,7 +262,8 @@
 					{
 						"name": "rating",
 						"title": {
-							"en": "Rating"
+							"en": "Rating",
+							"nl": "Score"
 						},
 						"example": {
 							"en": "6",
@@ -262,7 +275,8 @@
             {
                 "id": "volume_changed",
                 "title": {
-                    "en": "Volume changed"
+                    "en": "Volume changed",
+					"nl": "Afspeelvolume verandert"
                 },
                 "args": [
                     {
@@ -286,7 +300,8 @@
             {
                 "id": "shuffle_changed",
                 "title": {
-                    "en": "Shuffle changed"
+                    "en": "Shuffle state changed",
+					"nl": "Shufflestatus verandert"
                 },
                 "args": [
                     {
@@ -312,7 +327,8 @@
             {
                 "id": "mute_changed",
                 "title": {
-                    "en": "Mute state changed"
+                    "en": "Mute state changed",
+					"nl": "Mutestatus verandert"
                 },
                 "args": [
                     {
@@ -337,7 +353,8 @@
             {
                 "id": "repeat_changed",
                 "title": {
-                    "en": "Repeat state changed"
+                    "en": "Repeat state changed",
+					"nl": "Herhaalstatus verandert"
                 },
                 "args": [
                     {
@@ -655,7 +672,7 @@
 				"id": "set_rating",
 				"title": {
 					"en": "Set track rating",
-					"nl": "Verander rating"
+					"nl": "Verander score"
 				},
                 "args": [
 					{
@@ -665,7 +682,7 @@
 						"max": 10,
 						"placeholder": {
 							"en": "Rating in half stars 0-10",
-							"nl": "Rating in halve sterren 0-10"
+							"nl": "Score in halve sterren 0-10"
 						}
 					},
                     {

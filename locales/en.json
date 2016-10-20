@@ -6,7 +6,7 @@
 		"ip": "IP Address",
 		"port": "UDP Port number",
 		"connect": "Connect to MusicBee",
-		"connecting": "Connecting to MusicBee server",
+		"connecting": "Connecting to MusicBee Remote",
 		"error": "Could not connect to MusicBee on __address__",
 		"save": "Add MusicBee to Homey!",
 		"saving": "Adding MusicBee to Homey!",
