@@ -235,45 +235,6 @@
 				]
             },
             {
-                "id": "stopped",
-                "title": {
-                    "en": "Playing stopped"
-                },
-                "args": [
-                    {
-                        "name": "device",
-                        "type": "device",
-                        "filter": "driver_id=musicbee"
-                    }
-                ]
-            },
-            {
-                "id": "playing",
-                "title": {
-                    "en": "Playing started"
-                },
-                "args": [
-                    {
-                        "name": "device",
-                        "type": "device",
-                        "filter": "driver_id=musicbee"
-                    }
-                ]
-            },
-            {
-                "id": "paused",
-                "title": {
-                    "en": "Playing paused"
-                },
-                "args": [
-                    {
-                        "name": "device",
-                        "type": "device",
-                        "filter": "driver_id=musicbee"
-                    }
-                ]
-            },
-            {
                 "id": "rating_changed",
                 "title": {
                     "en": "Track rating changed"

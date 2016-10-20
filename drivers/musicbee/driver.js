@@ -97,9 +97,6 @@ function initDevice(device_data, callback) {
 				if(device.cachedPlayerStatus.playerstate !== playerStatus.playerstate)
 				{
 					triggerDevice( 'state_changed', { playingState: playerStatus.playerstate }, null, device_data);
-					
-					// Triggers played/paused and stopped flows
-					triggerDevice( playerStatus.playerstate.toLowerCase(), null, null, device_data);
 				}
 				
 				if(device.cachedPlayerStatus.playervolume !== playerStatus.playervolume)
