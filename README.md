@@ -1,3 +1,6 @@
+# Discontinued!
+Due to having to rewrite the app for Homey 2.0 and SDK2, I am discontinuing this app for now.
+
 # MusicBee Remote
 Ok Homey! Play me something!
 
